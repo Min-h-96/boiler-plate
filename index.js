@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
+const config = require("./config/key");
+
 const { User } = require("./models/user");
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -10,7 +12,7 @@ app.use(bodyParser.json());
 
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb+srv://minhyuk:chl153249@boiler-plate.qk2zz.mongodb.net/boiler-plate?retryWrites=true&w=majority", {
+  .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
