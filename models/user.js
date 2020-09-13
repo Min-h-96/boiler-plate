@@ -26,6 +26,9 @@ const userSchema = mongoose.Schema({
     default: 0,
   },
   image: String,
+  token: {
+    type: String,
+  },
   tokenExp: {
     type: Number,
   },
@@ -55,7 +58,7 @@ userSchema.methods.comparePassword = function (plainPassword, cb) {
   //plainPassword 1234567   암호화된 비밀번호 $2b$10$xUPSBwknz.F49xqlqmjg6OrVMVECZC2jr8tUTYjqTr28jUmr36.QO
   bcrypt.compare(plainPassword, user.password, function (err, isMatch) {
     if (err) return cb(err);
-    else return cb(null, isMatch);
+    cb(null, isMatch);
   });
 };
 
@@ -72,7 +75,7 @@ userSchema.methods.generateToken = function (cb) {
   });
 };
 
-userSchema.methods.findByToken = function (token, cb) {
+userSchema.statics.findByToken = function (token, cb) {
   var user = this;
 
   // 토큰을 decode 한다.
