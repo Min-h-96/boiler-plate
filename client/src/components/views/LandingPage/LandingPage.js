@@ -12,6 +12,8 @@ function LandingPage() {
       }}
     >
       <h2>시작 페이지</h2>
+
+      <button>로그아웃</button>
     </div>
   );
 }
